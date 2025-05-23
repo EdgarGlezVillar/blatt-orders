@@ -3,10 +3,11 @@ from app import create_app, db
 
 app = create_app()
 
-# Solo ejecutar esto si estás en entorno local de desarrollo
-if os.environ.get("FLASK_ENV") == "development":
+# Solo ejecuta db.create_all() si estamos en Render (evitamos que lo haga localmente en cada arranque)
+if os.environ.get('RENDER'):
     with app.app_context():
         db.create_all()
+        print("✔️ Tablas creadas automáticamente en Render")
 
 if __name__ == '__main__':
     app.run(debug=True)
