@@ -17,5 +17,8 @@ def create_app():
 
     db.init_app(app)
 
-    # Aquí puedes registrar Blueprints si usas
+    # Registrar Blueprint
+    from .routes import main
+    app.register_blueprint(main)
+
     return app
