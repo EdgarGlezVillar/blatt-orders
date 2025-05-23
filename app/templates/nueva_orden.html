@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Orden de Impresión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <h2>Registrar Nueva Orden de Impresión</h2>
+        <form method="POST">
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label>Número de Orden</label>
+                    <input type="text" name="numero_orden" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label>Fecha</label>
+                    <input type="date" name="fecha" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label>Cliente</label>
+                    <input type="text" name="cliente" class="form-control" required>
+                </div>
+
+                <!-- Producto -->
+                <div class="col-md-6">
+                    <label>Producto</label>
+                    <input type="text" name="nombre_producto" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label>Tiraje</label>
+                    <input type="number" name="tiraje" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label>Tamaño Final</label>
+                    <input type="text" name="tamano_final" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Páginas Interiores</label>
+                    <input type="text" name="paginas_interiores" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label>Papel Interiores</label>
+                    <input type="text" name="papel_interiores" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label>Tintas Interiores</label>
+                    <input type="text" name="tintas_interiores" class="form-control">
+                </div>
+
+                <div class="col-md-4">
+                    <label>Papel Portada</label>
+                    <input type="text" name="papel_portada" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label>Tintas Portada</label>
+                    <input type="text" name="tintas_portada" class="form-control">
+                </div>
+
+                <div class="col-md-12">
+                    <label>Acabados</label>
+                    <textarea name="acabados" class="form-control"></textarea>
+                </div>
+                <div class="col-md-12">
+                    <label>Observaciones</label>
+                    <textarea name="observaciones" class="form-control"></textarea>
+                </div>
+
+                <!-- Precios -->
+                <div class="col-md-2">
+                    <label>Precio Unitario</label>
+                    <input type="number" step="0.01" name="precio_unitario" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label>Subtotal</label>
+                    <input type="number" step="0.01" name="subtotal" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label>Total con IVA</label>
+                    <input type="number" step="0.01" name="total_iva" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Condiciones de Pago</label>
+                    <input type="text" name="condiciones_pago" class="form-control">
+                </div>
+
+                <!-- Entrega -->
+                <div class="col-md-4">
+                    <label>Tiempo de Entrega</label>
+                    <input type="text" name="tiempo_entrega" class="form-control">
+                </div>
+                <div class="col-md-8">
+                    <label>Lugar de Entrega</label>
+                    <input type="text" name="lugar_entrega" class="form-control">
+                </div>
+
+                <!-- Facturación -->
+                <div class="col-md-4">
+                    <label>Razón Social</label>
+                    <input type="text" name="razon_social" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label>RFC</label>
+                    <input type="text" name="rfc" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <label>Domicilio Fiscal</label>
+                    <textarea name="domicilio_fiscal" class="form-control"></textarea>
+                </div>
+
+                <div class="col-md-12 mt-3">
+                    <button class="btn btn-primary" type="submit">Guardar Orden</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
