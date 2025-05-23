@@ -7,7 +7,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    # Configuración de la base de datos
+    # Configuración de URI para PostgreSQL
     uri = os.environ.get("DATABASE_URL")
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
@@ -16,11 +16,11 @@ def create_app():
 
     db.init_app(app)
 
-    # Registra tus blueprints aquí
+    # Registro de blueprints
     from .routes import main
     app.register_blueprint(main)
 
-    # Crea las tablas solo si no existen
+    # ✅ Crea las tablas automáticamente al iniciar
     with app.app_context():
         db.create_all()
 
