@@ -9,6 +9,8 @@ def create_app():
 
     # Configuración de URI para PostgreSQL
     uri = os.environ.get("DATABASE_URL")
+    print(">>> BASE DE DATOS:", uri)
+
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = uri
