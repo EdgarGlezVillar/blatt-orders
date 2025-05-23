@@ -1,10 +1,9 @@
-import os
 from app import create_app, db
 
 app = create_app()
 
-# 👇 Esto creará las tablas automáticamente al desplegar en Render
-with app.app_context():
+@app.before_first_request
+def init_tables():
     db.create_all()
 
 if __name__ == '__main__':
