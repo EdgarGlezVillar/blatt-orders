@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from .models import OrdenImpresion
 
 db = SQLAlchemy()
 
