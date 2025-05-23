@@ -22,6 +22,7 @@ def create_app():
 
     # ✅ Crea las tablas automáticamente al iniciar
     with app.app_context():
+        from .models import OrdenImpresion
         db.create_all()
 
     return app
