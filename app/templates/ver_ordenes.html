@@ -2,26 +2,81 @@
 <html>
 <head>
     <title>Órdenes Registradas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Órdenes BLATT</h1>
-    <table border="1">
+    <table>
         <tr>
             <th>No. OC</th>
             <th>Cliente</th>
-            <th>Producto</th>
             <th>Fecha</th>
+            <th>Tiraje</th>
+            <th>Producto</th>
+            <th>Tamaño final</th>
+            <th>No. páginas</th>
+            <th>Papel interiores</th>
+            <th>Tintas interiores</th>
+            <th>Papel portada</th>
+            <th>Tintas portada</th>
+            <th>Acabados</th>
+            <th>Precio Unitario</th>
             <th>Subtotal</th>
             <th>Total con IVA</th>
+            <th>Tiempo de entrega</th>
+            <th>Condiciones de pago</th>
+            <th>Razón social</th>
+            <th>RFC</th>
+            <th>Domicilio fiscal</th>
+            <th>Nombre del cliente o RL</th>
         </tr>
         {% for orden in ordenes %}
         <tr>
             <td>{{ orden.numero_orden }}</td>
             <td>{{ orden.cliente }}</td>
-            <td>{{ orden.producto }}</td>
             <td>{{ orden.fecha }}</td>
+            <td>{{ orden.tiraje }}</td>
+            <td>{{ orden.producto }}</td>
+            <td>{{ orden.tamano_final }}</td>
+            <td>{{ orden.paginas_interiores }}</td>
+            <td>{{ orden.papel_interiores }}</td>
+            <td>{{ orden.tintas_interiores }}</td>
+            <td>{{ orden.papel_portada }}</td>
+            <td>{{ orden.tintas_portada }}</td>
+            <td>{{ orden.acabados }}</td>
+            <td>{{ orden.precio_unitario }}</td>
             <td>{{ orden.subtotal }}</td>
             <td>{{ orden.total_iva }}</td>
+            <td>{{ orden.tiempo_entrega }}</td>
+            <td>{{ orden.condiciones_pago }}</td>
+            <td>{{ orden.razon_social }}</td>
+            <td>{{ orden.rfc }}</td>
+            <td>{{ orden.domicilio_fiscal }}</td>
+            <td>{{ orden.nombre_cliente_rl }}</td>
         </tr>
         {% endfor %}
     </table>
