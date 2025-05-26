@@ -18,6 +18,8 @@ def create_app():
     # 👉 Importar rutas
     from .routes import main
     app.register_blueprint(main)
+    
+    from . import models  # 👈 Esto fuerza que los modelos se registren en SQLAlchemy
 
     # 👉 Crear tablas si no existen
     with app.app_context():
