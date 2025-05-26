@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Órdenes Registradas</title>
+</head>
+<body>
+    <h1>Órdenes BLATT</h1>
+    <table border="1">
+        <tr>
+            <th>No. OC</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Fecha</th>
+            <th>Subtotal</th>
+            <th>Total con IVA</th>
+        </tr>
+        {% for orden in ordenes %}
+        <tr>
+            <td>{{ orden.numero_orden }}</td>
+            <td>{{ orden.cliente }}</td>
+            <td>{{ orden.producto }}</td>
+            <td>{{ orden.fecha }}</td>
+            <td>{{ orden.subtotal }}</td>
+            <td>{{ orden.total_iva }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

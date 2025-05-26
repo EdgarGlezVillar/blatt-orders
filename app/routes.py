@@ -38,6 +38,12 @@ def nueva_orden():
             nombre_cliente_rl = request.form['nombre_cliente_rl'],
         )
 
+        @main.route('/ordenes')
+        def ver_ordenes():
+            ordenes = OrdenBlatt.query.all()
+            return render_template('ver_ordenes.html', ordenes=ordenes)
+
+
         db.session.add(orden)
         db.session.commit()
 
