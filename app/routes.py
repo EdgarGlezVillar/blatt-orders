@@ -35,14 +35,8 @@ def nueva_orden():
             razon_social = request.form['razon_social'],
             rfc = request.form['rfc'],
             domicilio_fiscal = request.form['domicilio_fiscal'],
-            nombre_cliente_rl = request.form['nombre_cliente_rl'],
+            nombre_cliente_rl = request.form['nombre_cliente_rl']
         )
-
-        @main.route('/ordenes')
-        def ver_ordenes():
-            ordenes = OrdenBlatt.query.all()
-            return render_template('ver_ordenes.html', ordenes=ordenes)
-
 
         db.session.add(orden)
         db.session.commit()
@@ -50,3 +44,9 @@ def nueva_orden():
         return redirect(url_for('main.index'))
 
     return render_template('nueva_orden.html')
+
+# ✅ Ruta correcta definida fuera de cualquier otra función
+@main.route('/ordenes')
+def ver_ordenes():
+    ordenes = OrdenBlatt.query.all()
+    return render_template('ver_ordenes.html', ordenes=ordenes)
