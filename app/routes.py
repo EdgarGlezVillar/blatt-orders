@@ -36,7 +36,6 @@ def nueva_orden():
             rfc = request.form['rfc'],
             domicilio_fiscal = request.form['domicilio_fiscal'],
             nombre_cliente_rl = request.form['nombre_cliente_rl'],
-            firma_conformidad = request.form['firma_conformidad']
         )
 
         db.session.add(orden)

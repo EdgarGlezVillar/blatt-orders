@@ -1,12 +1,31 @@
 from . import db
 
-class Orden(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    cliente = db.Column(db.String(100), nullable=False)
-    producto = db.Column(db.String(100), nullable=False)
-    cantidad = db.Column(db.Integer, nullable=False)
+class OrdenBlatt(db.Model):
+    __tablename__ = 'ordenes_blatt'
 
-class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100), nullable=False)
-    correo = db.Column(db.String(120), nullable=True)
+    numero_orden = db.Column(db.String(50), nullable=False)
+    cliente = db.Column(db.String(100), nullable=False)
+    fecha = db.Column(db.String(20), nullable=False)
+    tiraje = db.Column(db.String(50), nullable=False)
+    producto = db.Column(db.String(100), nullable=False)
+
+    tamano_final = db.Column(db.String(100))
+    paginas_interiores = db.Column(db.Integer)
+    papel_interiores = db.Column(db.String(100))
+    tintas_interiores = db.Column(db.String(100))
+    papel_portada = db.Column(db.String(100))
+    tintas_portada = db.Column(db.String(100))
+
+    acabados = db.Column(db.String(255))
+    precio_unitario = db.Column(db.Float)
+    subtotal = db.Column(db.Float)
+    total_iva = db.Column(db.Float)
+    tiempo_entrega = db.Column(db.String(100))
+    condiciones_pago = db.Column(db.String(255))
+
+    razon_social = db.Column(db.String(255))
+    rfc = db.Column(db.String(50))
+    domicilio_fiscal = db.Column(db.String(255))
+
+    nombre_cliente_rl = db.Column(db.String(100))

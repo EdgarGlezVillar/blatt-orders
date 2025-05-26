@@ -1,20 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tablas en la base de datos</title>
+    <title>Nueva Orden BLATT</title>
 </head>
 <body>
-    <h1>Conexión a la base de datos PostgreSQL</h1>
+    <h1>Registrar nueva orden</h1>
+    <form method="POST">
+        <label>No. OC BLATT:</label><br>
+        <input type="text" name="numero_orden"><br>
 
-    {% if tablas %}
-        <h2>Tablas encontradas:</h2>
-        <ul>
-            {% for tabla in tablas %}
-                <li>{{ tabla }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No se encontraron tablas en la base de datos.</p>
-    {% endif %}
+        <label>Cliente:</label><br>
+        <input type="text" name="cliente"><br>
+
+        <label>Fecha:</label><br>
+        <input type="date" name="fecha"><br>
+
+        <label>Tiraje:</label><br>
+        <input type="text" name="tiraje"><br>
+
+        <label>Producto:</label><br>
+        <input type="text" name="producto"><br>
+
+        <label>Tamaño Final:</label><br>
+        <input type="text" name="tamano_final"><br>
+
+        <h3>Interiores</h3>
+        <label>No. Páginas:</label><br>
+        <input type="number" name="paginas_interiores"><br>
+        <label>Papel:</label><br>
+        <input type="text" name="papel_interiores"><br>
+        <label>Tintas:</label><br>
+        <input type="text" name="tintas_interiores"><br>
+
+        <h3>Portadas</h3>
+        <label>Papel:</label><br>
+        <input type="text" name="papel_portada"><br>
+        <label>Tintas:</label><br>
+        <input type="text" name="tintas_portada"><br>
+
+        <label>Acabados:</label><br>
+        <input type="text" name="acabados"><br>
+
+        <label>Precio Unitario:</label><br>
+        <input type="number" step="0.01" name="precio_unitario"><br>
+        <label>Subtotal:</label><br>
+        <input type="number" step="0.01" name="subtotal"><br>
+        <label>Total con IVA:</label><br>
+        <input type="number" step="0.01" name="total_iva"><br>
+
+        <label>Tiempo de Entrega:</label><br>
+        <input type="text" name="tiempo_entrega"><br>
+
+        <label>Condiciones de Pago:</label><br>
+        <input type="text" name="condiciones_pago"><br>
+
+        <label>Razón Social:</label><br>
+        <input type="text" name="razon_social"><br>
+        <label>RFC:</label><br>
+        <input type="text" name="rfc"><br>
+        <label>Domicilio Fiscal:</label><br>
+        <input type="text" name="domicilio_fiscal"><br>
+
+        <label>Nombre del cliente o RL:</label><br>
+        <input type="text" name="nombre_cliente_rl"><br>
+
+        <button type="submit">Guardar Orden</button>
+    </form>
 </body>
 </html>
