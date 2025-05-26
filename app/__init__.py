@@ -1,30 +1,23 @@
-import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
 
-    # Configuración de URI para PostgreSQL
-    uri = os.environ.get("DATABASE_URL")
-    print(">>> BASE DE DATOS:", uri)
-
-    if uri and uri.startswith("postgres://"):
-        uri = uri.replace("postgres://", "postgresql://", 1)
-    app.config['SQLALCHEMY_DATABASE_URI'] = uri
+    # Usa tus propias credenciales de DATABASE_URL (de tu dashboard de PostgreSQL)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')  # Lo cargas desde variables de entorno
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
 
-    # Registro de blueprints
+    # Importar rutas
     from .routes import main
     app.register_blueprint(main)
-
-    # ✅ Crea las tablas automáticamente al iniciar
-    with app.app_context():
-        from .models import OrdenImpresion
-        db.create_all()
 
     return app
