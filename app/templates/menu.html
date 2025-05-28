@@ -6,7 +6,8 @@
 {% if rol == 'admin' %}
     <a href="{{ url_for('main.ver_ordenes') }}" class="btn">Órdenes</a>
     <a href="#" class="btn">Clientes</a>
-    <a href="{{ url_for('main.gestion_base') }}" class="btn">Gestionar Base</a>
+    <a href="{{ url_for('main.nueva_orden') }}" class="btn">Registrar Orden</a>  {# 👈 NUEVO BOTÓN #}
+    <!-- <a href="{{ url_for('main.gestion_base') }}" class="btn">Gestionar Base</a> --> {# Elimina o comenta si no existe #}
 {% elif rol == 'general' %}
     <a href="{{ url_for('main.ver_ordenes') }}" class="btn">Órdenes</a>
 {% endif %}

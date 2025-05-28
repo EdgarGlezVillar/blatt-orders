@@ -16,7 +16,7 @@ def login():
         flash('Usuario o contraseña incorrectos')
     return render_template('login.html')
 
-# RUTA: logout (opcional)
+# RUTA: logout
 @main.route('/logout')
 def logout():
     session.clear()
@@ -29,25 +29,33 @@ def menu():
         return redirect(url_for('main.login'))
     return render_template('menu.html', usuario=session['usuario'], rol=session['rol'])
 
+# RUTA: usuarios
 @main.route('/usuarios')
 def ver_usuarios():
-    from .models import Usuario
+    if 'usuario' not in session:
+        return redirect(url_for('main.login'))
     usuarios = Usuario.query.all()
     return render_template('usuarios.html', usuarios=usuarios)
 
+# RUTA: gestión base
 @main.route('/gestion-base')
 def gestion_base():
+    if 'usuario' not in session:
+        return redirect(url_for('main.login'))
     return '<h1>Gestión de base en construcción</h1>'
 
-# RUTA: redirige a login desde la raíz
+# RUTA: raíz redirige a login
 @main.route('/')
 def index():
     return redirect(url_for('main.login'))
 
-
-# RUTA: registrar nueva orden
+# RUTA: registrar nueva orden (solo admin)
 @main.route('/nueva-orden', methods=['GET', 'POST'])
 def nueva_orden():
+    if 'usuario' not in session or session.get('rol') != 'admin':
+        flash('Acceso no autorizado.')
+        return redirect(url_for('main.menu'))
+
     if request.method == 'POST':
         orden = OrdenBlatt(
             numero_orden = request.form['numero_orden'],
@@ -72,19 +80,16 @@ def nueva_orden():
             domicilio_fiscal = request.form['domicilio_fiscal'],
             nombre_cliente_rl = request.form['nombre_cliente_rl']
         )
-
         db.session.add(orden)
         db.session.commit()
-
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.ver_ordenes'))
 
     return render_template('nueva_orden.html')
 
-# RUTA: ver órdenes registradas
+# RUTA: ver órdenes
 @main.route('/ordenes')
 def ver_ordenes():
     if 'usuario' not in session:
         return redirect(url_for('main.login'))
-
     ordenes = OrdenBlatt.query.all()
     return render_template('ver_ordenes.html', ordenes=ordenes)
