@@ -1,59 +1,16 @@
 {% extends 'base.html' %}
-{% block title %}Órdenes Registradas{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content %}
-<h2>Órdenes Registradas</h2>
-<table>
-    <thead>
-        <tr>
-            <th>No. OC</th>
-            <th>Cliente</th>
-            <th>Fecha</th>
-            <th>Producto</th>
-            <th>Tiraje</th>
-            <th>Tamaño Final</th>
-            <th>Páginas Interiores</th>
-            <th>Papel Interiores</th>
-            <th>Tintas Interiores</th>
-            <th>Papel Portada</th>
-            <th>Tintas Portada</th>
-            <th>Acabados</th>
-            <th>Precio Unitario</th>
-            <th>Subtotal</th>
-            <th>Total con IVA</th>
-            <th>Tiempo Entrega</th>
-            <th>Condiciones de Pago</th>
-            <th>Razón Social</th>
-            <th>RFC</th>
-            <th>Domicilio Fiscal</th>
-            <th>Nombre Cliente/Representante Legal</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for orden in ordenes %}
-        <tr>
-            <td>{{ orden.numero_orden }}</td>
-            <td>{{ orden.cliente }}</td>
-            <td>{{ orden.fecha }}</td>
-            <td>{{ orden.producto }}</td>
-            <td>{{ orden.tiraje }}</td>
-            <td>{{ orden.tamano_final }}</td>
-            <td>{{ orden.paginas_interiores }}</td>
-            <td>{{ orden.papel_interiores }}</td>
-            <td>{{ orden.tintas_interiores }}</td>
-            <td>{{ orden.papel_portada }}</td>
-            <td>{{ orden.tintas_portada }}</td>
-            <td>{{ orden.acabados }}</td>
-            <td>{{ orden.precio_unitario }}</td>
-            <td>{{ orden.subtotal }}</td>
-            <td>{{ orden.total_iva }}</td>
-            <td>{{ orden.tiempo_entrega }}</td>
-            <td>{{ orden.condiciones_pago }}</td>
-            <td>{{ orden.razon_social }}</td>
-            <td>{{ orden.rfc }}</td>
-            <td>{{ orden.domicilio_fiscal }}</td>
-            <td>{{ orden.nombre_cliente_rl }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h2>Iniciar sesión</h2>
+<form method="POST">
+    <div class="form-group">
+        <label>Usuario:</label>
+        <input type="text" name="username" required>
+    </div>
+    <div class="form-group">
+        <label>Contraseña:</label>
+        <input type="password" name="password" required>
+    </div>
+    <button type="submit" class="btn">Ingresar</button>
+</form>
 {% endblock %}
