@@ -23,7 +23,6 @@ def create_app():
 
     # 👉 Crear tablas si no existen
     with app.app_context():
-        db.drop_all()
         db.create_all()
                 # Crear usuarios base si no existen
         from .models import Usuario
