@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Menú Principal</title>
-    <style>
-        body { background-color: #679289; font-family: sans-serif; color: white; text-align: center; padding: 50px; }
-        h1 { margin-bottom: 30px; }
-        .boton { display: inline-block; margin: 10px; padding: 15px 30px; background-color: #EE2E31; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <h1>Bienvenido, {{ usuario }}</h1>
+{% extends 'base.html' %}
+{% block title %}Menú{% endblock %}
+{% block content %}
+<h2>Bienvenido, {{ usuario }}</h2>
 
-    {% if rol == 'admin' %}
-        <a class="boton" href="/ordenes">Órdenes</a>
-        <a class="boton" href="#">Clientes</a>
-        <a class="boton" href="/">Gestionar Base</a>
-    {% elif rol == 'general' %}
-        <a class="boton" href="/ordenes">Órdenes</a>
-    {% endif %}
-</body>
-</html>
+{% if rol == 'admin' %}
+    <a href="{{ url_for('main.ver_ordenes') }}" class="btn">Órdenes</a>
+    <a href="#" class="btn">Clientes</a>
+    <a href="{{ url_for('main.gestion_base') }}" class="btn">Gestionar Base</a>
+{% elif rol == 'general' %}
+    <a href="{{ url_for('main.ver_ordenes') }}" class="btn">Órdenes</a>
+{% endif %}
+
+<a href="{{ url_for('main.logout') }}" class="btn">Cerrar sesión</a>
+{% endblock %}

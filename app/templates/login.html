@@ -1,20 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login BLATT</title>
-    <style>
-        body { background-color: #071E22; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        form { background: #1D7874; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px #000; }
-        input { display: block; width: 100%; margin-bottom: 10px; padding: 8px; border: none; }
-        button { background: #F4C095; border: none; padding: 10px; font-weight: bold; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <form method="POST">
-        <h2>Iniciar Sesión</h2>
-        <input name="username" placeholder="Usuario" required>
-        <input name="password" placeholder="Contraseña" type="password" required>
-        <button type="submit">Entrar</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Órdenes Registradas{% endblock %}
+{% block content %}
+<h2>Órdenes Registradas</h2>
+<table>
+    <thead>
+        <tr>
+            <th>No. OC</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Producto</th>
+            <th>Tiraje</th>
+            <th>Tamaño Final</th>
+            <th>Páginas Interiores</th>
+            <th>Papel Interiores</th>
+            <th>Tintas Interiores</th>
+            <th>Papel Portada</th>
+            <th>Tintas Portada</th>
+            <th>Acabados</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+            <th>Total con IVA</th>
+            <th>Tiempo Entrega</th>
+            <th>Condiciones de Pago</th>
+            <th>Razón Social</th>
+            <th>RFC</th>
+            <th>Domicilio Fiscal</th>
+            <th>Nombre Cliente/Representante Legal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for orden in ordenes %}
+        <tr>
+            <td>{{ orden.numero_orden }}</td>
+            <td>{{ orden.cliente }}</td>
+            <td>{{ orden.fecha }}</td>
+            <td>{{ orden.producto }}</td>
+            <td>{{ orden.tiraje }}</td>
+            <td>{{ orden.tamano_final }}</td>
+            <td>{{ orden.paginas_interiores }}</td>
+            <td>{{ orden.papel_interiores }}</td>
+            <td>{{ orden.tintas_interiores }}</td>
+            <td>{{ orden.papel_portada }}</td>
+            <td>{{ orden.tintas_portada }}</td>
+            <td>{{ orden.acabados }}</td>
+            <td>{{ orden.precio_unitario }}</td>
+            <td>{{ orden.subtotal }}</td>
+            <td>{{ orden.total_iva }}</td>
+            <td>{{ orden.tiempo_entrega }}</td>
+            <td>{{ orden.condiciones_pago }}</td>
+            <td>{{ orden.razon_social }}</td>
+            <td>{{ orden.rfc }}</td>
+            <td>{{ orden.domicilio_fiscal }}</td>
+            <td>{{ orden.nombre_cliente_rl }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

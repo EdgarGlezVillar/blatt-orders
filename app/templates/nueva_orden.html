@@ -1,121 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registrar Nueva Orden</title>
-    <style>
-        body {
-            background-color: #071E22;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            padding: 20px;
-        }
-        h1 {
-            color: #F4C095;
-        }
-        form {
-            background-color: #1D7874;
-            padding: 25px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin: auto;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            color: #F4C095;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #679289;
-            color: white;
-        }
-        button {
-            background-color: #EE2E31;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            margin-top: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <h1>Registrar Nueva Orden</h1>
-    <form method="POST">
-        <label>No. OC BLATT:</label>
-        <input type="text" name="numero_orden">
-
-        <label>Cliente:</label>
-        <input type="text" name="cliente">
-
-        <label>Fecha:</label>
-        <input type="date" name="fecha">
-
-        <label>Tiraje:</label>
-        <input type="text" name="tiraje">
-
-        <label>Producto:</label>
-        <input type="text" name="producto">
-
-        <label>Tamaño Final:</label>
-        <input type="text" name="tamano_final">
-
-        <h3>Interiores</h3>
-        <label>No. Páginas:</label>
-        <input type="number" name="paginas_interiores">
-
-        <label>Papel:</label>
-        <input type="text" name="papel_interiores">
-
-        <label>Tintas:</label>
-        <input type="text" name="tintas_interiores">
-
-        <h3>Portadas</h3>
-        <label>Papel:</label>
-        <input type="text" name="papel_portada">
-
-        <label>Tintas:</label>
-        <input type="text" name="tintas_portada">
-
-        <label>Acabados:</label>
-        <input type="text" name="acabados">
-
-        <label>Precio Unitario:</label>
-        <input type="text" name="precio_unitario">
-
-        <label>Subtotal:</label>
-        <input type="text" name="subtotal">
-
-        <label>Total con IVA:</label>
-        <input type="text" name="total_iva">
-
-        <label>Tiempo de Entrega:</label>
-        <input type="text" name="tiempo_entrega">
-
-        <label>Condiciones de Pago:</label>
-        <input type="text" name="condiciones_pago">
-
-        <label>Razón Social:</label>
-        <input type="text" name="razon_social">
-
-        <label>RFC:</label>
-        <input type="text" name="rfc">
-
-        <label>Domicilio Fiscal:</label>
-        <input type="text" name="domicilio_fiscal">
-
-        <label>Nombre del cliente o RL:</label>
-        <input type="text" name="nombre_cliente_rl">
-
-        <button type="submit">Guardar Orden</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Registrar Orden{% endblock %}
+{% block content %}
+<h2>Registrar nueva orden</h2>
+<form method="POST">
+    {% for campo, label in {
+        'numero_orden': 'Número de Orden',
+        'cliente': 'Cliente',
+        'fecha': 'Fecha',
+        'tiraje': 'Tiraje',
+        'producto': 'Producto',
+        'tamano_final': 'Tamaño Final',
+        'paginas_interiores': 'No. Páginas Interiores',
+        'papel_interiores': 'Papel Interiores',
+        'tintas_interiores': 'Tintas Interiores',
+        'papel_portada': 'Papel Portada',
+        'tintas_portada': 'Tintas Portada',
+        'acabados': 'Acabados',
+        'precio_unitario': 'Precio Unitario',
+        'subtotal': 'Subtotal',
+        'total_iva': 'Total con IVA',
+        'tiempo_entrega': 'Tiempo de Entrega',
+        'condiciones_pago': 'Condiciones de Pago',
+        'razon_social': 'Razón Social',
+        'rfc': 'RFC',
+        'domicilio_fiscal': 'Domicilio Fiscal',
+        'nombre_cliente_rl': 'Nombre del Cliente o Representante Legal'
+    }.items() %}
+        <div class="form-group">
+            <label>{{ label }}:</label>
+            <input type="{{ 'date' if 'fecha' in campo else 'text' }}" name="{{ campo }}" required>
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn">Guardar Orden</button>
+</form>
+{% endblock %}

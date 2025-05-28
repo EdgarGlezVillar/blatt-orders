@@ -1,71 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Órdenes Registradas</title>
-    <style>
-        body {
-            background-color: #071E22;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            padding: 30px;
-        }
-        h1 {
-            color: #F4C095;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
-            background-color: #1D7874;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #F4C095;
-            text-align: left;
-        }
-        th {
-            background-color: #F4C095;
-            color: #071E22;
-        }
-        tr:nth-child(even) {
-            background-color: #679289;
-        }
-    </style>
-</head>
-<body>
-    <h1>Órdenes BLATT</h1>
-    <table>
+{% extends 'base.html' %}
+{% block title %}Órdenes Registradas{% endblock %}
+{% block content %}
+<h2>Órdenes Registradas</h2>
+<table>
+    <thead>
         <tr>
             <th>No. OC</th>
             <th>Cliente</th>
             <th>Fecha</th>
-            <th>Tiraje</th>
             <th>Producto</th>
-            <th>Tamaño final</th>
-            <th>No. páginas</th>
-            <th>Papel interiores</th>
-            <th>Tintas interiores</th>
-            <th>Papel portada</th>
-            <th>Tintas portada</th>
+            <th>Tiraje</th>
+            <th>Tamaño Final</th>
+            <th>Páginas Interiores</th>
+            <th>Papel Interiores</th>
+            <th>Tintas Interiores</th>
+            <th>Papel Portada</th>
+            <th>Tintas Portada</th>
             <th>Acabados</th>
             <th>Precio Unitario</th>
             <th>Subtotal</th>
             <th>Total con IVA</th>
-            <th>Tiempo de entrega</th>
-            <th>Condiciones de pago</th>
-            <th>Razón social</th>
+            <th>Tiempo Entrega</th>
+            <th>Condiciones de Pago</th>
+            <th>Razón Social</th>
             <th>RFC</th>
-            <th>Domicilio fiscal</th>
-            <th>Nombre del cliente o RL</th>
+            <th>Domicilio Fiscal</th>
+            <th>Nombre Cliente/Representante Legal</th>
         </tr>
+    </thead>
+    <tbody>
         {% for orden in ordenes %}
         <tr>
             <td>{{ orden.numero_orden }}</td>
             <td>{{ orden.cliente }}</td>
             <td>{{ orden.fecha }}</td>
-            <td>{{ orden.tiraje }}</td>
             <td>{{ orden.producto }}</td>
+            <td>{{ orden.tiraje }}</td>
             <td>{{ orden.tamano_final }}</td>
             <td>{{ orden.paginas_interiores }}</td>
             <td>{{ orden.papel_interiores }}</td>
@@ -84,6 +54,6 @@
             <td>{{ orden.nombre_cliente_rl }}</td>
         </tr>
         {% endfor %}
-    </table>
-</body>
-</html>
+    </tbody>
+</table>
+{% endblock %}

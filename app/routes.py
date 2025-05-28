@@ -29,12 +29,11 @@ def menu():
         return redirect(url_for('main.login'))
     return render_template('menu.html', usuario=session['usuario'], rol=session['rol'])
 
-# RUTA: mostrar tablas base
+# RUTA: redirige a login desde la raíz
 @main.route('/')
 def index():
-    inspector = db.inspect(db.engine)
-    tablas = inspector.get_table_names()
-    return render_template('nueva_orden.html', tablas=tablas)
+    return redirect(url_for('main.login'))
+
 
 # RUTA: registrar nueva orden
 @main.route('/nueva-orden', methods=['GET', 'POST'])
