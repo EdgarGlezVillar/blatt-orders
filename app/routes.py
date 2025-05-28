@@ -1,16 +1,42 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from . import db
-from .models import OrdenBlatt
+from .models import OrdenBlatt, Usuario
 
 main = Blueprint('main', __name__)
 
+# RUTA: login
+@main.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user = Usuario.query.filter_by(username=request.form['username']).first()
+        if user and user.check_password(request.form['password']):
+            session['usuario'] = user.username
+            session['rol'] = user.rol
+            return redirect(url_for('main.menu'))
+        flash('Usuario o contraseña incorrectos')
+    return render_template('login.html')
+
+# RUTA: logout (opcional)
+@main.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('main.login'))
+
+# RUTA: menú principal
+@main.route('/menu')
+def menu():
+    if 'usuario' not in session:
+        return redirect(url_for('main.login'))
+    return render_template('menu.html', usuario=session['usuario'], rol=session['rol'])
+
+# RUTA: mostrar tablas base
 @main.route('/')
 def index():
-    # Solo muestra las tablas disponibles
     inspector = db.inspect(db.engine)
     tablas = inspector.get_table_names()
     return render_template('nueva_orden.html', tablas=tablas)
 
+# RUTA: registrar nueva orden
 @main.route('/nueva-orden', methods=['GET', 'POST'])
 def nueva_orden():
     if request.method == 'POST':
@@ -45,8 +71,11 @@ def nueva_orden():
 
     return render_template('nueva_orden.html')
 
-# ✅ Ruta correcta definida fuera de cualquier otra función
+# RUTA: ver órdenes registradas
 @main.route('/ordenes')
 def ver_ordenes():
+    if 'usuario' not in session:
+        return redirect(url_for('main.login'))
+
     ordenes = OrdenBlatt.query.all()
     return render_template('ver_ordenes.html', ordenes=ordenes)

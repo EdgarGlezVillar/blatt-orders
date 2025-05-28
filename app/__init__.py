@@ -25,6 +25,20 @@ def create_app():
     with app.app_context():
         db.drop_all()
         db.create_all()
+                # Crear usuarios base si no existen
+        from .models import Usuario
+
+        if not Usuario.query.filter_by(username='admin').first():
+            admin = Usuario(username='admin', rol='admin')
+            admin.set_password('admin123')
+            db.session.add(admin)
+
+        if not Usuario.query.filter_by(username='general').first():
+            general = Usuario(username='general', rol='general')
+            general.set_password('general123')
+            db.session.add(general)
+
+        db.session.commit()
 
 
     return app
