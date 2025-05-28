@@ -35,6 +35,9 @@ def ver_usuarios():
     usuarios = Usuario.query.all()
     return render_template('usuarios.html', usuarios=usuarios)
 
+@main.route('/gestion-base')
+def gestion_base():
+    return '<h1>Gestión de base en construcción</h1>'
 
 # RUTA: redirige a login desde la raíz
 @main.route('/')
