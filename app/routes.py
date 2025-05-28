@@ -29,6 +29,13 @@ def menu():
         return redirect(url_for('main.login'))
     return render_template('menu.html', usuario=session['usuario'], rol=session['rol'])
 
+@main.route('/usuarios')
+def ver_usuarios():
+    from .models import Usuario
+    usuarios = Usuario.query.all()
+    return render_template('usuarios.html', usuarios=usuarios)
+
+
 # RUTA: redirige a login desde la raíz
 @main.route('/')
 def index():
