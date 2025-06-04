@@ -22,24 +22,30 @@ def create_app():
 
     from . import models  # 👈 Esto fuerza que los modelos se registren en SQLAlchemy
 
-    # 👉 Crear tablas si no existen
+    # 👉 Crear tablas y usuarios base
     with app.app_context():
-        db.drop_all()
         db.create_all()
-                # Crear usuarios base si no existen
+
         from .models import Usuario
 
+        # Usuario administrador
         if not Usuario.query.filter_by(username='admin').first():
             admin = Usuario(username='admin', rol='admin')
             admin.set_password('admin123')
             db.session.add(admin)
 
-        if not Usuario.query.filter_by(username='general').first():
-            general = Usuario(username='general', rol='general')
-            general.set_password('general123')
-            db.session.add(general)
+        # Usuario ventas
+        if not Usuario.query.filter_by(username='ventas').first():
+            ventas = Usuario(username='ventas', rol='ventas')
+            ventas.set_password('ventas123')
+            db.session.add(ventas)
+
+        # Usuario producción
+        if not Usuario.query.filter_by(username='prod').first():
+            prod = Usuario(username='prod', rol='produccion')
+            prod.set_password('prod123')
+            db.session.add(prod)
 
         db.session.commit()
-
 
     return app

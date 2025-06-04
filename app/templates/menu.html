@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
-{% block title %}Menú{% endblock %}
+{% block title %}Menú Principal{% endblock %}
+
 {% block content %}
 <h2>Bienvenido, {{ usuario }}</h2>
 
 {% if rol == 'admin' %}
-    <a href="{{ url_for('main.ver_ordenes') }}" class="btn">Órdenes</a>
-    <a href="#" class="btn">Clientes</a>
-    <a href="{{ url_for('main.nueva_orden') }}" class="btn">Registrar Orden</a>  {# 👈 NUEVO BOTÓN #}
-    <!-- <a href="{{ url_for('main.gestion_base') }}" class="btn">Gestionar Base</a> --> {# Elimina o comenta si no existe #}
-{% elif rol == 'general' %}
-    <a href="{{ url_for('main.ver_ordenes') }}" class="btn">Órdenes</a>
+    <p style="color:#F4C095;">Tienes acceso completo al sistema.</p>
+    <a href="/usuarios" class="btn">Gestionar Usuarios</a>
+    <a href="/nueva-orden" class="btn">Registrar Orden</a>
+    <a href="/cotizaciones" class="btn">Consultar Cotizaciones</a>
+
+{% elif rol == 'ventas' %}
+    <p style="color:#F4C095;">Menú de Ventas</p>
+    <a href="/registrar-cliente" class="btn">Registrar Cliente</a>
+    <a href="/registrar-cotizacion" class="btn">Registrar Cotización</a>
+    <a href="/registrar-orden" class="btn">Registrar Orden de Compra</a>
+    <a href="/consultar-cotizaciones" class="btn">Consultar Cotizaciones</a>
+    <a href="/consultar-ordenes" class="btn">Consultar Ordenes de Compra</a>
+
+{% elif rol == 'produccion' %}
+    <p style="color:#F4C095;">Menú de Producción</p>
+    <a href="/procesar-ordenes" class="btn">Procesar Órdenes</a>
 {% endif %}
 
-<a href="{{ url_for('main.logout') }}" class="btn">Cerrar sesión</a>
+<br><br>
+<a href="{{ url_for('main.logout') }}" class="btn">Cerrar Sesión</a>
 {% endblock %}

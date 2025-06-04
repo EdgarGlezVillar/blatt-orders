@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Cliente{% endblock %}
+
+{% block content %}
+<h2>Registrar Nuevo Cliente</h2>
+<form method="POST">
+    <div class="form-group"><label>Nombre:</label><input type="text" name="nombre" required></div>
+    <div class="form-group"><label>Razón Social:</label><input type="text" name="razon_social"></div>
+    <div class="form-group"><label>RFC:</label><input type="text" name="rfc"></div>
+    <div class="form-group"><label>Domicilio Fiscal:</label><input type="text" name="domicilio_fiscal"></div>
+    <div class="form-group"><label>Representante Legal:</label><input type="text" name="representante_legal"></div>
+    <div class="form-group"><label>Email:</label><input type="email" name="email"></div>
+    <div class="form-group"><label>Teléfono:</label><input type="text" name="telefono"></div>
+
+    <h3>Precios Personalizados</h3>
+    {% for campo in [
+        'precio_tiro', 'precio_placas', 'precio_engargolado', 'precio_hotmelt', 'precio_grapa',
+        'precio_plastificado_m', 'precio_plastificado_b', 'precio_barniz_uv', 'precio_folio',
+        'precio_doblez', 'precio_alzado', 'precio_suaje', 'precio_tabla_suaje', 'precio_placa_foil',
+        'precio_tiro_foil', 'precio_empaque', 'precio_corte'
+    ] %}
+    <div class="form-group">
+        <label>{{ campo.replace('_', ' ').capitalize() }}:</label>
+        <input type="number" step="any" name="{{ campo }}">
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn">Guardar Cliente</button>
+</form>
+{% endblock %}
