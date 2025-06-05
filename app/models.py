@@ -2,7 +2,23 @@ from . import db
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Tabla CLIENTES
+# Tabla de usuarios
+class Usuario(db.Model):
+    __tablename__ = 'usuarios'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), nullable=False, unique=True)
+    password_hash = db.Column(db.String(128), nullable=False)
+    rol = db.Column(db.String(20), nullable=False)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+# Tabla de clientes
 class Cliente(db.Model):
     __tablename__ = 'clientes'
 
@@ -34,23 +50,21 @@ class Cliente(db.Model):
     precio_empaque = db.Column(db.Numeric(10, 2))
     precio_corte = db.Column(db.Numeric(10, 2))
 
-    cotizaciones = db.relationship("Cotizacion", back_populates="cliente", cascade="all, delete")
-    ordenes = db.relationship("OrdenDeCompra", back_populates="cliente", cascade="all, delete")
+    cotizaciones = relationship("Cotizacion", back_populates="cliente", cascade="all, delete-orphan")
 
 
-# Tabla COTIZACIONES
+# Tabla de cotizaciones
 class Cotizacion(db.Model):
     __tablename__ = 'cotizaciones'
 
     id = db.Column(db.Integer, primary_key=True)
     fecha_cotizacion = db.Column(db.Date)
-    cliente_id = db.Column(db.Integer, db.ForeignKey('clientes.id'))
-    cliente = db.relationship("Cliente", back_populates="cotizaciones")
+    cliente_id = db.Column(db.Integer, db.ForeignKey('clientes.id', ondelete='CASCADE'), nullable=False)
 
     tiraje = db.Column(db.Integer)
     producto = db.Column(db.String)
 
-    # INTERIOR
+    # Interior
     tipo_papel_interior = db.Column(db.String)
     paginas_interior = db.Column(db.Integer)
     tamano_final_interior = db.Column(db.String)
@@ -66,7 +80,7 @@ class Cotizacion(db.Model):
     tabla_suaje_interior = db.Column(db.Boolean)
     folio_interior = db.Column(db.Boolean)
 
-    # PORTADA
+    # Portada
     tipo_papel_portada = db.Column(db.String)
     paginas_portada = db.Column(db.Integer)
     tamano_final_portada = db.Column(db.String)
@@ -82,7 +96,7 @@ class Cotizacion(db.Model):
     tabla_suaje_portada = db.Column(db.Boolean)
     folio_portada = db.Column(db.Boolean)
 
-    # ACABADOS FINALES
+    # Acabados finales
     engargolado = db.Column(db.Boolean)
     hotmelt = db.Column(db.Boolean)
     grapa = db.Column(db.Boolean)
@@ -92,7 +106,7 @@ class Cotizacion(db.Model):
     corte = db.Column(db.Boolean)
     otros = db.Column(db.Boolean)
 
-    # PRECIOS UNITARIOS
+    # Precios unitarios
     precio_tiro = db.Column(db.Float)
     precio_placas = db.Column(db.Float)
     precio_engargolado = db.Column(db.Float)
@@ -112,14 +126,17 @@ class Cotizacion(db.Model):
     precio_corte = db.Column(db.Float)
     precio_otros = db.Column(db.Float)
 
-    # SUBTOTAL GENERAL
+    # Subtotal general
     subtotal = db.Column(db.Float)
 
-    # Relación con ordenes
-    ordenes = db.relationship("OrdenDeCompra", back_populates="cotizacion", cascade="all, delete-orphan")
+    # Relación con cliente
+    cliente = relationship("Cliente", back_populates="cotizaciones")
+
+    # Relación con ordenes de compra
+    ordenes = relationship('OrdenDeCompra', back_populates='cotizacion', cascade='all, delete-orphan')
 
 
-# Tabla ORDENES DE COMPRA
+# Tabla de órdenes de compra
 class OrdenDeCompra(db.Model):
     __tablename__ = 'ordenes_de_compra'
 
@@ -150,19 +167,6 @@ class OrdenDeCompra(db.Model):
     prioridad = db.Column(db.Text)
     entregado = db.Column(db.Boolean, default=False)
 
-    cotizacion = db.relationship("Cotizacion", back_populates="ordenes")
-    cliente = db.relationship("Cliente", back_populates="ordenes")
-
-
-# Tabla USUARIOS
-class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), nullable=False, unique=True)
-    password_hash = db.Column(db.String(128), nullable=False)
-    rol = db.Column(db.String(20), nullable=False)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+    # Relaciones
+    cotizacion = relationship('Cotizacion', back_populates='ordenes')
+    cliente = relationship('Cliente')  # Relación directa sin backref redundante
