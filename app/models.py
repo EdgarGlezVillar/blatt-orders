@@ -1,5 +1,6 @@
 from . import db
 from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Tabla CLIENTES
 class Cliente(db.Model):
@@ -34,7 +35,7 @@ class Cliente(db.Model):
     precio_corte = db.Column(db.Numeric(10, 2))
 
     cotizaciones = db.relationship("Cotizacion", back_populates="cliente", cascade="all, delete")
-    ordenes = db.relationship('OrdenDeCompra', backref='cliente', cascade='all, delete')
+    ordenes = db.relationship("OrdenDeCompra", back_populates="cliente", cascade="all, delete")
 
 
 # Tabla COTIZACIONES
@@ -44,7 +45,7 @@ class Cotizacion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fecha_cotizacion = db.Column(db.Date)
     cliente_id = db.Column(db.Integer, db.ForeignKey('clientes.id'))
-    cliente = relationship("Cliente", back_populates="cotizaciones")
+    cliente = db.relationship("Cliente", back_populates="cotizaciones")
 
     tiraje = db.Column(db.Integer)
     producto = db.Column(db.String)
@@ -114,7 +115,8 @@ class Cotizacion(db.Model):
     # SUBTOTAL GENERAL
     subtotal = db.Column(db.Float)
 
-
+    # Relación con ordenes
+    ordenes = db.relationship("OrdenDeCompra", back_populates="cotizacion", cascade="all, delete-orphan")
 
 
 # Tabla ORDENES DE COMPRA
@@ -148,12 +150,11 @@ class OrdenDeCompra(db.Model):
     prioridad = db.Column(db.Text)
     entregado = db.Column(db.Boolean, default=False)
 
-    cotizacion = db.relationship('Cotizacion', backref=db.backref('ordenes', cascade='all, delete-orphan'))
-    cliente = db.relationship('Cliente', backref=db.backref('ordenes', cascade='all, delete-orphan'))
+    cotizacion = db.relationship("Cotizacion", back_populates="ordenes")
+    cliente = db.relationship("Cliente", back_populates="ordenes")
 
-from . import db
-from werkzeug.security import generate_password_hash, check_password_hash
 
+# Tabla USUARIOS
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
